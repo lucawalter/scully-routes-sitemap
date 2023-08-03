@@ -1,0 +1,36 @@
+{
+  "name": "scully-routes-sitemap",
+  "version": "0.0.1",
+  "description": "Sitemap Plugin for Scully",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucawalter/scully-routes-sitemap.git"
+  },
+  "keywords": [
+    "scully",
+    "sitemap",
+    "seo"
+  ],
+  "author": "exportarts",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lucawalter/scully-routes-sitemap/issues"
+  },
+  "homepage": "https://github.com/lucawalter/scully-routes-sitemap#readme",
+  "dependencies": {
+    "@scullyio/scully": "2.1.41",
+    "fast-xml-parser": "4.2.7",
+    "path-to-regexp": "6.2.1",
+    "xmlbuilder": "15.1.1"
+  },
+  "devDependencies": {
+    "@types/jsdom": "21.1.1",
+    "typescript": "5.1.6"
+  }
+}

@@ -1,0 +1,51 @@
+name: Build and Upload
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install Yarn
+        run: npm install -g yarn
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build package
+        run: yarn build
+
+      - name: Create gcloud Auth file
+        id: create-json
+        uses: jsdaniell/create-json@v1.2.2
+        with:
+          name: "google_application_credentials.json"
+          json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_APP }}
+
+      - name: GCloud Auth
+        env:
+          PROJECT_ID: ${{vars.GOOGLE_CLOUD_PROJECT}}
+        run: |
+          gcloud auth activate-service-account --key-file=google_application_credentials.json
+          gcloud auth configure-docker europe-west1-npm.pkg.dev
+
+      - name: Upload to Artifacts
+        env:
+          PROJECT_ID: ${{vars.GOOGLE_CLOUD_PROJECT}}
+
+          PROJECT_NAME: "exportarts"
+          GCLOUD_LOCATION: "europe-west3-npm.pkg.dev"
+        run: |
+          cat google_application_credentials.json | docker login -u _json_key --password-stdin ${GCLOUD_LOCATION}

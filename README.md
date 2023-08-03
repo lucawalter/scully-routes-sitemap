@@ -1,1 +1,1 @@
-scully-routes-sitemap
+npm init scully-routes-sitemap
